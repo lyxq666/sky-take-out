@@ -1,4 +1,4 @@
-package com.sky.interceptor;
+package com.sky.interceptor;// 指定拦截器所在的包
 
 import com.sky.constant.JwtClaimsConstant;
 import com.sky.context.BaseContext;

@@ -1,4 +1,4 @@
-package com.sky.config;
+package com.sky.config;// 指定配置类所在的包
 
 import com.sky.interceptor.JwtTokenAdminInterceptor;
 import com.sky.json.JacksonObjectMapper;
