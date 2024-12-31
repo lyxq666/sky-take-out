@@ -16,6 +16,15 @@
                );
 
     </insert>
+    <delete id="deleteByIds">
+# //sql:delete from dish where id in (?,?,?)
+            delete from dish where id in
+            <foreach collection="ids" open="(" close=")" separator="," item="id">
+                #{id}
+            </foreach>
+
+
+    </delete>
     <select id="pageQuery"  resultType="com.sky.vo.DishVO">
 
         SELECT d.*,c.name AS categoryName FROM dish d LEFT OUTER JOIN category c ON d.category_id = c.id
