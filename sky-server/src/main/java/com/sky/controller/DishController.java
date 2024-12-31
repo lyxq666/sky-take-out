@@ -14,6 +14,8 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.geo.Distance;
 import org.springframework.web.bind.annotation.*;
 
+import java.util.List;
+
 /**
  * 菜品管理
  */
@@ -51,4 +53,19 @@ public class DishController {
         return Result.success(pageResult);
     }
 
+    /**
+     * 批量删除菜品
+     * @param ids
+     * @return
+     */
+    @DeleteMapping
+    @ApiOperation("批量删除菜品")
+    public Result delete(@RequestParam List<Long> ids)//@RequestParam注解用于获取HTTP请求中的参数，并把这些参数传递给方法中的变量。
+    {
+        //eg：GET /delete?ids=1&ids=2&ids=3
+        //ids=[1,2,3]
+        log.info("批量删除菜品：{}", ids);
+        dishService.deleteBatch(ids);
+        return Result.success();
+    }
 }
