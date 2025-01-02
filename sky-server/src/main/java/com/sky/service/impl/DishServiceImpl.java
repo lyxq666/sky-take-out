@@ -8,10 +8,12 @@ import com.sky.dto.DishDTO;
 import com.sky.dto.DishPageQueryDTO;
 import com.sky.entity.Dish;
 import com.sky.entity.DishFlavor;
+import com.sky.entity.Setmeal;
 import com.sky.exception.DeletionNotAllowedException;
 import com.sky.mapper.DishFlavorMapper;
 import com.sky.mapper.DishMapper;
 import com.sky.mapper.SetmealDishMapper;
+import com.sky.mapper.SetmealMapper;
 import com.sky.result.PageResult;
 import com.sky.service.DishService;
 import com.sky.vo.DishVO;
@@ -22,6 +24,7 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.bind.annotation.RequestBody;
 
+import java.util.ArrayList;
 import java.util.List;
 
 @Service
@@ -35,6 +38,8 @@ public class DishServiceImpl implements DishService {
     private DishFlavorMapper dishFlavorMqapper;
     @Autowired
     private SetmealDishMapper setmealDishMapper;
+    @Autowired
+    private SetmealMapper setmealMapper;
 
     /**
      * 新增菜品和对应的口味数据
@@ -189,5 +194,33 @@ public class DishServiceImpl implements DishService {
                 .status(status)
                 .build();
         dishMapper.update(dish);
+
+        //规则：如果执行停售操作，则包含此菜品的套餐也需要停售
+        if(status == StatusConstant.DISABLE)
+        {
+            //如果停售，包含当前菜品的套餐也需要停售
+            List<Long> dishIds = new ArrayList<>();
+            dishIds.add(id);
+
+            List<Long> setmealIds = setmealDishMapper.getSetmealIdsByDishIds(dishIds);//根据菜品id查询对应的套餐
+            if(setmealIds != null && setmealIds.size()>0)//当前菜品关联的套餐存在
+            {
+                log.info("检查发现存在包含该菜品的套餐");
+                for(Long setmealId : setmealIds)
+                {
+                    Setmeal setmeal = Setmeal.builder()
+                            .id(setmealId)
+                            .status(StatusConstant.DISABLE)//将含义菜品id的套餐禁用
+                            .build();
+                    setmealMapper.update(setmeal);
+                }
+            }
+            else {
+                log.info("不存在包含该菜品的套餐");
+            }
+      
+      
+        }
+
     }
 }

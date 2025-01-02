@@ -99,6 +99,7 @@ public class DishController {
 
     /**
      * 菜品起售、禁售
+     * 规则：如果执行停售操作，则包含此菜品的套餐也需要停售
      * @param status
      * @param id
      * @return
