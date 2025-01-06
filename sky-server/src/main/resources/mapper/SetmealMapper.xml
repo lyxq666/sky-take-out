@@ -2,7 +2,9 @@
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
         "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
 <mapper namespace="com.sky.mapper.SetmealMapper">
-    <insert id="insert">
+<!--    useGeneratedKeys="true"  &lt;!&ndash; 使用数据库生成的主键，通常是自动递增的 ID &ndash;&gt;-->
+<!--    keyProperty="id"         &lt;!&ndash; 将生成的主键值设置到 Setmeal 对象的 id 属性上 &ndash;&gt;-->
+    <insert id="insert" parameterType="Setmeal" useGeneratedKeys="true" keyProperty="id">
         INSERT INTO setmeal (
             category_id, name, price, status, description, image, create_time, update_time, create_user, update_user
         )
@@ -43,4 +45,10 @@
         </set>
         where id = #{id}
     </update>
+<!--    <select id="pageQuery" resultType="com.sky.vo.SetmealVO">-->
+<!--        select setmeal.*,-->
+
+
+
+<!--    </select>-->
 </mapper>
