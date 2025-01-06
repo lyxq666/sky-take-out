@@ -112,4 +112,54 @@ public class SetmealServiceImpl implements SetmealService {
             setmealDishMapper.deleteBySetmealId(setmealId);
         });
     }
+
+    /**
+     * 根据id查询套餐和关联的菜品数据
+     *
+     * @param id
+     * @return  返回包含套餐信息和关联菜品的 SetmealVO 对象
+     */
+    @Override
+    public SetmealVO getByIdWithDish(Long id) {
+        // 获取套餐数据
+        Setmeal setmeal = setmealMapper.getById(id);
+        // 获取与套餐关联的菜品数据
+        List<SetmealDish> setmealDishes = setmealDishMapper.getBySetmealId(id);
+        // 将套餐数据拷贝到 SetmealVO 对象中
+        SetmealVO setmealVO = new SetmealVO();
+        BeanUtils.copyProperties(setmeal, setmealVO);
+        // 设置套餐关联的菜品数据
+        setmealVO.setSetmealDishes(setmealDishes);
+
+        return setmealVO;
+    }
+
+    /**
+     * 修改套餐，包括更新套餐表和套餐与菜品的关联关系。
+     *
+     * @param setmealDTO 套餐数据传输对象，包含更新后的套餐信息和菜品关系
+     */
+    @Override
+    public void update(SetmealDTO setmealDTO) {
+        // 将套餐DTO转换为套餐实体
+        Setmeal setmeal = new Setmeal();
+        BeanUtils.copyProperties(setmealDTO, setmeal);
+
+        //1、修改套餐表，执行update
+        setmealMapper.update(setmeal);
+
+        //套餐id
+        Long setmealId = setmealDTO.getId();
+
+        //2、删除套餐和菜品的关联关系，操作setmeal_dish表，执行delete
+        setmealDishMapper.deleteBySetmealId(setmealId);
+
+        // 3、重新设置套餐ID并插入新的菜品关联数据
+        List<SetmealDish> setmealDishes = setmealDTO.getSetmealDishes();
+        setmealDishes.forEach(setmealDish -> {
+            setmealDish.setSetmealId(setmealId);
+        });
+        //3、重新插入套餐和菜品的关联关系，操作setmeal_dish表，执行insert
+        setmealDishMapper.insertBatch(setmealDishes);
+    }
 }
