@@ -1,4 +1,4 @@
-package com.sky.controller;
+package com.sky.controller.admin;
 
 import com.sky.dto.SetmealDTO;
 import com.sky.dto.SetmealPageQueryDTO;
@@ -17,7 +17,7 @@ import java.util.List;
 @RestController
 @RequestMapping("admin/setmeal")
 @Slf4j
-@Api("套餐相关接口")
+@Api(tags = "套餐相关接口")
 public class SetmealController {
 
     @Autowired

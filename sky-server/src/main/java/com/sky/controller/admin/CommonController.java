@@ -1,7 +1,6 @@
-package com.sky.controller;
+package com.sky.controller.admin;
 
 import com.sky.constant.MessageConstant;
-import com.sky.dto.CategoryDTO;
 import com.sky.result.Result;
 import com.sky.utils.AliOssUtil;
 import io.swagger.annotations.Api;

@@ -1,6 +1,7 @@
 package com.sky.config;
 
 import lombok.extern.slf4j.Slf4j;
+import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.data.redis.connection.RedisConnectionCommands;
 import org.springframework.data.redis.connection.RedisConnectionFactory;
@@ -11,6 +12,7 @@ import org.springframework.data.redis.serializer.StringRedisSerializer;
 @Slf4j
 public class RedisConfiguration {
 
+    @Bean//将方法返回的对象注册为 Spring 容器的 Bean。供其他组件注入和使用。
     public RedisTemplate redisTemplate(RedisConnectionFactory redisConnectionFactory)
     {
         log.info("开始创建redis模板对象。。。");
