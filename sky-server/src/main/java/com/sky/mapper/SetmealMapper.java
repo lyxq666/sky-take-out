@@ -39,5 +39,5 @@ public interface SetmealMapper {
      * @param setmealPageQueryDTO
      * @return
      */
-//    Page<SetmealVO> pageQuery(SetmealPageQueryDTO setmealPageQueryDTO);
+    Page<SetmealVO> pageQuery(SetmealPageQueryDTO setmealPageQueryDTO);
 }

@@ -20,5 +20,5 @@ public interface SetmealService {
      * @param setmealPageQueryDTO
      * @return
      */
-//    PageResult pageQuery(SetmealPageQueryDTO setmealPageQueryDTO);
+    PageResult pageQuery(SetmealPageQueryDTO setmealPageQueryDTO);
 }

@@ -68,11 +68,15 @@ public class SetmealServiceImpl implements SetmealService {
      * @param setmealPageQueryDTO
      * @return
      */
-//    @Override
-//    public PageResult pageQuery(SetmealPageQueryDTO setmealPageQueryDTO) {
-//        PageHelper.startPage(setmealPageQueryDTO.getPage(),setmealPageQueryDTO.getPageSize());
-//        Page<SetmealVO> page = setmealMapper.pageQuery(setmealPageQueryDTO);
-//
-//        return new PageResult(page.getTotal(),page.getResult());
-//    }
+    @Override
+    public PageResult pageQuery(SetmealPageQueryDTO setmealPageQueryDTO) {
+        int pageNum = setmealPageQueryDTO.getPage();
+        int pageSize = setmealPageQueryDTO.getPageSize();
+
+
+        PageHelper.startPage(pageNum, pageSize);
+        Page<SetmealVO> page = setmealMapper.pageQuery(setmealPageQueryDTO);
+
+        return new PageResult(page.getTotal(),page.getResult());
+    }
 }
