@@ -16,3 +16,6 @@ sky:
     port: 6379
     password: 123456
     database: 0 #数据库也可以不配置，默认是0，一共有16个
+  wechat:
+    appid: wx0c12ac1c8d8f9e87
+    secret: 1719943e041b2bc6a87e0ab103038883
