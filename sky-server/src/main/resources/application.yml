@@ -60,15 +60,5 @@ sky:
     secret: ${sky.wechat.secret}
 
 
-#aliyun oss配置
-aliyun:
-  oss:
-    endpoint: ${sky.alioss.endpoint}
-    access-key=id: ${sky.alioss.access-key-id}
-    access-key-secret: ${sky.alioss.access-key-secret}
-    bucket-name: ${sky.alioss.bucket-name}
-#    endpoint: https://oss-cn-hangzhou.aliyuncs.com
-#    access-key-id: LTAI5tLoeD53wduU8AHP49ZK
-#    access-key-secret: TlqXDO7hF8ShNxyMpuALDHtQc0S5Lz
-#    bucket-name: logic-k
+
 
