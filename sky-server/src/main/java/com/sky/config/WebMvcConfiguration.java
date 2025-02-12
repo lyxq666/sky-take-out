@@ -48,9 +48,9 @@ public class WebMvcConfiguration extends WebMvcConfigurationSupport {
 
         //用户接口（/user/**）也需要进行 JWT 校验，但排除用户登录接口（/user/user/login）。
         registry.addInterceptor(jwtTokenUserInterceptor)
-                .addPathPatterns("/user/**")
-                .excludePathPatterns("/user/user/login")
-                .excludePathPatterns("/user/shop/status");//在未登录时就会发出这个请求，所以排除此请求
+                .addPathPatterns("/user/**")//拦截
+                .excludePathPatterns("/user/user/login")//在未登录时就会发出这个请求，所以排除此请求
+                .excludePathPatterns("/user/shop/status");//同上，在进入小程序后就会请求状态
 
     }
 
